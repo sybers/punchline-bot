@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "mysql": "^2.13.0",
+    "promise": "^7.1.1",
     "slack-node": "^0.1.8"
   }
 }
