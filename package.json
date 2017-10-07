@@ -1,16 +1,17 @@
 {
-  "name": "daily-punch",
-  "version": "1.0.0",
+  "name": "daily-punchline",
+  "version": "1.1.0",
   "description": "Provides a daily rap punchline (in french)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "send": "node src/index.js",
+    "generate": "node src/index.js --generate"
   },
   "author": "Stanyslas Bres <stanyslas.bres@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "mysql": "^2.13.0",
     "promise": "^7.1.1",
-    "slack-node": "^0.1.8"
+    "slack-node": "^0.1.8",
+    "sqlite3": "^3.1.13"
   }
 }

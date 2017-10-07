@@ -1,9 +1,9 @@
-CREATE TABLE punchlines (
-    `image_src` VARCHAR(104) CHARACTER SET utf8,
-    `content` VARCHAR(152) CHARACTER SET utf8,
-    `author` VARCHAR(44) CHARACTER SET utf8,
-    `album` VARCHAR(56) CHARACTER SET utf8,
-    `track` VARCHAR(58) CHARACTER SET utf8
+CREATE TABLE IF NOT EXISTS punchlines (
+    `image_src` TEXT,
+    `content` TEXT,
+    `author` TEXT,
+    `album` TEXT,
+    `track` TEXT
 );
 INSERT INTO punchlines VALUES ('http://www.punchline.fr/wp-content/uploads/2010/12/booba1.jpg','« Tu sais pas qui je suis ? Google-moi, enculé ! »','Booba','0.9','Salade Tomates Oignons');
 INSERT INTO punchlines VALUES ('http://www.punchline.fr/wp-content/uploads/2010/12/Shurikn-100x100.jpg','« Tu sais la vie c’est pas toujours comme on veut, c’est souvent comme on peut. »','Shurik''N','Où Je Vis','Lettre');

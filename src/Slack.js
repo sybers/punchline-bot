@@ -1,5 +1,6 @@
 const NodeSlack = require('slack-node');
 const Promise = require('promise');
+const config = require('./config');
 
 
 module.exports = class Slack {
@@ -15,7 +16,7 @@ module.exports = class Slack {
         if(punchlineData.track !== 'null') content += ', _Track : ' + punchlineData.track + "_";
         return new Promise( function(resolve, reject) {
             this.slack.webhook({
-                channel: '#tests',
+                channel: config.Slack.channel,
                 username: punchlineData.author + " - Daily Punchline",
                 icon_emoji: punchlineData.image_src,
                 text: content
