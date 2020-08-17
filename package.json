@@ -1,17 +1,21 @@
 {
-  "name": "daily-punchline",
+  "name": "punchline-bot",
   "version": "1.1.0",
-  "description": "Provides a daily rap punchline (in french)",
-  "main": "index.js",
+  "description": "Sends rap punchlines to Slack or Discord (in french)",
+  "main": "src/index.js",
   "scripts": {
-    "send": "node src/index.js",
-    "generate": "node src/index.js --generate"
+    "generate": "node src/index.js --generate",
+    "send:discord": "node src/index.js --discord",
+    "send:slack": "node src/index.js --slack"
   },
-  "author": "Stanyslas Bres <stanyslas.bres@gmail.com>",
+  "author": "dzetah <dzetag@pm.me>",
   "license": "MIT",
+  "engines": {
+    "node": "^10.21"
+  },
   "dependencies": {
-    "promise": "^7.1.1",
+    "discord-webhook-node": "^1.1.8",
     "slack-node": "^0.1.8",
-    "sqlite3": "^3.1.13"
+    "sqlite3": "^4.2.0"
   }
 }
