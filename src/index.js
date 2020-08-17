@@ -1,50 +1,63 @@
-const PunchLineDB = require(__dirname + '/PunchlineDB');
-const Slack = require(__dirname + '/Slack');
-const config = require(__dirname + '/config.js');
-const fs = require('fs');
+const fs = require("fs");
+const config = require("./config");
+const { generateSchema, getRandomPunchline } = require("./database");
+const slack = require("./connectors/slack");
+const discord = require("./connectors/discord");
 
-let slack = new Slack(config.Slack.webhook);
-
-switch(process.argv[2]) {
-  case '--generate':
+switch (process.argv[2]) {
+  case "--generate":
     generate();
     break;
 
-  case undefined:
-    randomPunchline();
+  case "--slack":
+    randomSlackPunchline();
+    break;
+
+  case "--discord":
+    randomDiscordPunchline();
     break;
 
   default:
-    wrongParam();
+    help();
 }
 
-function generate() {
-  let punchlineDB = new PunchLineDB();
-  punchlineDB.generateFromFile(config.SQLite.initFile)
-    .then( () => {
-      console.log('Database initialised from ' + fs.realpathSync(config.SQLite.initFile) + ' file !' );
-    }).catch( (err) => {
-      console.error(err);
-    }).finally( ( ) => {
-      punchlineDB.close();
-    });
+async function generate() {
+  try {
+    await generateSchema(config.db.schemaPath, config.db.path);
+
+    console.log(
+      `Database initialised from ${fs.realpathSync(config.db.schemaPath)} file.`
+    );
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-function randomPunchline() {
-  let punchlineDB = new PunchLineDB();
-  punchlineDB.getRandomPunchline()
-    .then( (res) => {
-      console.log(res);
-      return slack.sendPunchline(res);
-    }).then(() => {
-      console.log('Punchline sent on Slack !');
-    }).catch( (err) => {
-      console.log(err);
-    }).finally(() => {
-      punchlineDB.close();
-    });
+async function randomSlackPunchline() {
+  try {
+    const punchline = await getRandomPunchline(config.db.path);
+    await slack.sendPunchline(
+      { webhook: config.slack.webhook, channel: config.slack.channel },
+      punchline
+    );
+    console.log("Punchline sent on Slack !");
+  } catch (e) {
+    console.log(e);
+  }
 }
 
-function wrongParam() {
-  console.log('Unknown parameter ' + process.argv[2] + ', refer to the README for usage instructions...');
+async function randomDiscordPunchline() {
+  try {
+    const punchline = await getRandomPunchline(config.db.path);
+    await discord.sendPunchline({ webhook: config.discord.webhook }, punchline);
+    console.log("Punchline sent to Slack !");
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function help() {
+  console.log(
+    `Unknown parameter ${process.argv[2]}, refer to the README for usage instructions...`
+  );
 }

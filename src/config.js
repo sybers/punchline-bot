@@ -1,11 +1,13 @@
-let config = {
-  Slack: {
-    webhook: "https://hooks.slack.com/services/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",
-    channel: "#zbeul",
+module.exports = {
+  db: {
+    schemaPath: __dirname + "/../assets/punchlines.sql",
+    path: __dirname + "/../data/punchlines.sqlite",
   },
-  SQLite: {
-    initFile: __dirname + "/../assets/punchlines.sql",
-  }
+  slack: {
+    webhook: "--YOUR SLACK WEBHOOK HERE--",
+    channel: "#general",
+  },
+  discord: {
+    webhook: "--YOUR DISCORD WEBHOOK HERE--",
+  },
 };
-
-module.exports = config;
