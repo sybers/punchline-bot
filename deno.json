@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "generate": "deno run src/main.ts --generate",
+    "generate": "deno run --allow-env --allow-read --allow-write src/main.ts --generate",
     "send": "deno run --allow-env --allow-read --allow-write src/main.ts --connector"
   },
   "imports": {
